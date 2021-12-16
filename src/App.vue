@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <Head :poiInfo="poiInfo" />
+
+    <Nav />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
+import Head from "./components/Head/Head.vue";
+import Nav from "./components/Nav/Nav.vue";
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      poiInfo: {}
+    };
+  },
+  created() {
+    this.$axios
+      .get("/api/goods")
+      .then(res => {
+        var dataSource = res.data;
+        if (dataSource.code == 0) {
+          this.poiInfo = dataSource.data.poi_info;
+          console.log(this.poiInfo);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   components: {
-    HelloWorld
+    Head,
+    Nav
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
