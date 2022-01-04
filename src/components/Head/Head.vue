@@ -13,7 +13,11 @@
 
       <div class="more-wrapper">
         <a class="spelling-bt" href="#">拼单</a>
-        <div class="more-bt"></div>
+        <div class="more-bt">
+          <i class="s-radius"></i>
+          <i class="s-radius"></i>
+          <i class="s-radius"></i>
+        </div>
       </div>
     </div>
 
@@ -22,6 +26,9 @@
 
     <!-- announcement -->
     <div class="bulletin-wrapper"></div>
+
+    <!-- background -->
+    <div class="bg-wrapper" :style="content_bg"></div>
   </div>
 </template>
 
@@ -32,6 +39,11 @@ export default {
     poiInfo: {
       type: Object,
       default: {}
+    }
+  },
+  computed: {
+    content_bg() {
+      return "background-image:url(" + this.poiInfo.head_pic_url + ");";
     }
   }
 };
