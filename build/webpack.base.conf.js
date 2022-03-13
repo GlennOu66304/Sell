@@ -24,9 +24,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
+    // realtive path configuare
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'component':resolve('src/components')
     }
   },
   module: {
