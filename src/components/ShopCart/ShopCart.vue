@@ -52,8 +52,9 @@ computed function to decide if the color will turn to yellow
       <div class="list_Head">
         <!-- 1)number bags -->
         <h3 class="title">1号口袋</h3>
-
-        <div class="empty">
+<!-- Goal: click the clear text, then food number = 0 
+1.add a click under the clear text; -->
+        <div class="empty" @click="empty">
           <!-- 2)icon -->
           <img src="./ash_bin.png" alt="" />
           <!-- 3)clear the shopping cart -->
@@ -263,6 +264,15 @@ export default {
         return;
       }
       this.hide = !this.hide;
+    },
+//     2.add a empty method
+// 3.for each loop the this.selecteFoods array
+// 3.set the selected food's count = 0
+    empty(){
+      this.selectFoods.forEach((item)=>{
+        item.count = 0;
+
+      });
     }
   },
 
