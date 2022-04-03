@@ -1,5 +1,7 @@
-# sell
 
+
+## Meituan
+vue.esm.js?efeb:628 [Vue warn]: Error in render: "TypeError: Cannot read properties of undefined (reading '0')"
 
 
 
@@ -27,3 +29,20 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## The Reason why you can not render the app.vue component in the dev eneviroment,
+
+You need to change the  the this value in index.js to this assetsPublicPath: '/',
+
+[Vue项目启动后页面为空白解决方案](https://blog.csdn.net/weixin_43254676/article/details/89446174?spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-10.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-10.pc_relevant_default&utm_relevant_index=13)
+[：router.config.js](https://segmentfault.com/q/1010000008144091)
+[Simple vue app doesn't show anything](https://stackoverflow.com/questions/43244003/simple-vue-app-doesnt-show-anything)
+
+You can deploy the sell app with the node server, no need to involve the nginx:
+
+Just cd to the deploy directory, then run the code below:
+```
+node pro.server.js
+```
+then you input the code below to see the result in the browser， you need to git branch to the 
+main branch first.

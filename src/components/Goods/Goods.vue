@@ -168,6 +168,7 @@ export default {
           // console.log(this.container);
           // console.log(this.goods);
           // console.log(that.shoppingCart);
+            console.log(that.poiInfo);
           //  3.after the receiving the data and dom is loaded, then start to use the init scroll function in the methods
           // the $nextTick is a function
           // if you can not see the left side is scorlling, please open it into the resposive option, then choose 100% expand

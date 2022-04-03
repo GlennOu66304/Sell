@@ -49,13 +49,22 @@ computed function to decide if the color will turn to yellow
 
     <!-- Class and Style Bindings -->
     <div  v-show="listShow" class="shopCart_list" :class="{ show: listShow }">
+
       <!-- first area discount number top -->
-      <div v-show="poiInfo.discounts2" class="list_Top">
+      <!-- v-if can fix the bug error:vue: Uncaught TypeError: Cannot read property ... of undefined 
+      vue: Uncaught TypeError: Cannot read property ... of undefined
+      https://stackoverflow.com/questions/41051972/vue-uncaught-typeerror-cannot-read-property-of-undefined
+      
+      
+      -->
+        <div v-show="poiInfo.discounts2" class="list_Top" v-if=" poiInfo.discounts2">
         {{ poiInfo.discounts2[0].info }}
       </div>
 
+
+
       <!-- second area header -->
-      <div class="list_Head">
+   <div class="list_Head">
         <!-- 1)number bags -->
         <h3 class="title">1号口袋</h3>
 <!-- Goal: click the clear text, then food number = 0 
@@ -68,9 +77,10 @@ computed function to decide if the color will turn to yellow
         </div>
       </div>
 
+
       <!-- .third area: content -->
 
-      <div ref="shopCartList"  class="list_content">
+  <div ref="shopCartList"  class="list_content">
         <ul >
           <li v-for="(item, index) in selectFoods" :key="index" class="food">
             <div class="desc-wrapper">
@@ -101,8 +111,11 @@ computed function to decide if the color will turn to yellow
         </ul>
       </div>
 
+
       <!-- fourth area:1) gray area bottom -->
-      <div class="list_bottom"></div>
+      <!-- <div class="list_bottom"></div> -->
+
+
     </div>
 
     </div>
