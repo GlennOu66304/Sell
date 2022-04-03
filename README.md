@@ -1,9 +1,8 @@
 # sell
 
-> 美团外卖APP
 
-Goal: click the clear text, then food number = 0 
-1.add a click under the clear text;
+
+
 
 ## Dev server lost
 [why there is no dev-client.js and dev-server.js in the project's builder folder?](https://www.udemy.com/course/vuejs-app/learn/lecture/8476936#questions/3675486)  

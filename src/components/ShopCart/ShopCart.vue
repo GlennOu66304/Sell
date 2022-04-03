@@ -1,5 +1,11 @@
+
+
+
 <template>
-  <div class="shopCart">
+  <div class="shopCart" :class="{ highLight: totalNumber > 0 }">
+    <div class="shopCart-wrapper">
+
+          <!-- Shopping Cart Wrapper -->
     <!-- lay out write: -->
 
     <div class="left_content">
@@ -98,6 +104,24 @@ computed function to decide if the color will turn to yellow
       <!-- fourth area:1) gray area bottom -->
       <div class="list_bottom"></div>
     </div>
+
+    </div>
+<!-- the mask area -->
+<!-- // Goal:
+// 1.add the mask area to the shopping cart;
+// 2.When you click the mask area, it will go back to normal;
+// 3.only show the mask area when there is value in the shoping cart
+
+// I.UI build:
+// 1.under the shop cart, add a wrap;
+// 2.add the css value to change the layout;
+// 3.mask css value
+// II.function build:
+// 1.v-show manage the display
+// 2.click the item to thow the mask -->
+
+<div class="mask" v-show="listShow" @click="hideMask"></div>
+
   </div>
 </template>
 
@@ -273,6 +297,10 @@ export default {
         item.count = 0;
 
       });
+    },
+
+    hideMask(){
+      this.hide=true
     }
   },
 
@@ -284,7 +312,10 @@ export default {
 </script>
 
 <style>
-.shopCart {
+
+/* in order to make sure the css apply, you need to change the shopCart to the
+.shopCart-wrapper */
+.shopCart-wrapper {
   width: 100%;
   height: 51px;
   background: #514f4f;
@@ -292,13 +323,16 @@ export default {
   position: fixed;
   bottom: 0;
   display: flex;
+  z-index:99;
 }
-
+.shopCart-wrapper heighLine {
+  background: #2d2b2a;
+}
 /* 1)flex mode box left and right */
 .shopCart .left_content {
   flex: 1;
 }
-.shopCart .left_content .logoWrapper {
+ .shopCart-wrapper .left_content .logoWrapper {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -312,20 +346,20 @@ export default {
   float: left;
 }
 /* highLight Color fix left part */
-.shopCart .left_content .logoWrapper.highLight {
+ .shopCart-wrapper  .left_content .logoWrapper.highLight {
   background: #ffd161;
 }
 
-.shopCart .left_content .logoWrapper span {
+.shopCart-wrapper  .left_content .logoWrapper span {
   font-size: 28px;
   color: #c4c4c4;
   line-height: 50px;
 }
-.shopCart .left_content .logoWrapper span.highLight {
+.shopCart-wrapper .left_content .logoWrapper span.highLight {
   color: #202b2a;
 }
 
-.shopCart .left_content .logoWrapper .total_number {
+ .shopCart-wrapper  .left_content .logoWrapper .total_number {
   width: 15px;
   height: 15px;
   line-height: 15px;
@@ -338,44 +372,45 @@ export default {
   right: 0;
 }
 
-.shopCart .left_content .desWrapper {
+.shopCart-wrapper  .left_content .desWrapper {
   float: left;
   margin-left: 13px;
 }
 
-.shopCart .left_content .desWrapper .total_price {
+.shopCart-wrapper  .left_content .desWrapper .total_price {
   color: white;
   height: 19px;
   line-height: 33px;
 }
 
-.shopCart .left_content .desWrapper .tip {
+ .shopCart-wrapper .left_content .desWrapper .tip {
   font-size: 12px;
   color: #bab9b9;
   font-weight: bold;
   line-height: 50px;
 }
-.shopCart .left_content .desWrapper .tip.highLight {
+ .shopCart-wrapper  .left_content .desWrapper .tip.highLight {
   line-height: 12px;
   margin-top: 10px;
 }
 
-.shopCart .right_content {
+.shopCart-wrapper .right_content {
   flex: 0 0 110px;
   font-size: 15px;
   color: #bab9b9;
   line-height: 50px;
   text-align: center;
+  font-weight: bold;
 }
 
 /* highLight Color fix  right payment box*/
-.shopCart .right_content.highLight {
+ .shopCart-wrapper .right_content.highLight {
   background: #ffd161;
   color: #202b2a;
 }
 
 /* CSS for the shop-cart Lsit tab */
-.shopCart .shopCart_list {
+.shopCart-wrapper .shopCart_list {
   position: absolute;
   top: 0;
   left: 0;
@@ -383,11 +418,11 @@ export default {
   width: 100%;
 }
 
-.shopCart .shopCart_list.show {
+ .shopCart-wrapper .shopCart_list.show {
   transform: translateY(-100%);
 }
 /* 1)list top */
-.shopCart .shopCart_list .list_Top {
+ .shopCart_list .list_Top {
   color: #646158;
   background: #f3e6c6;
   height: 30px;
@@ -399,12 +434,12 @@ export default {
 
 /* 2)list head */
 
-.shopCart .shopCart_list .list_Head {
+.shopCart-wrapper  .shopCart_list .list_Head {
   background: #f4f4f4;
   height: 30px;
 }
 
-.shopCart .shopCart_list .list_Head .title {
+.shopCart-wrapper .shopCart_list .list_Head .title {
   float: left;
   border-left: 1px solid #53c123;
   padding-left: 6px;
@@ -412,48 +447,48 @@ export default {
   font-size: 12px;
 }
 
-.shopCart .shopCart_list .list_Head .empty {
+.shopCart-wrapper .shopCart_list .list_Head .empty {
   float: right;
   margin-right: 10px;
   line-height: 30px;
   font-size: 0;
 }
 
-.shopCart .shopCart_list .list_Head .empty img {
+.shopCart-wrapper .shopCart_list .list_Head .empty img {
   margin-right: 9px;
   height: 14px;
   vertical-align: middle;
 }
 
-.shopCart .shopCart_list .list_Head .empty span {
+.shopCart-wrapper .shopCart_list .list_Head .empty span {
   font-size: 12px;
   vertical-align: middle;
 }
 
 /* 3)list content: */
-.shopCart .shopCart_list .list_content {
+.shopCart-wrapper .shopCart_list .list_content {
   max-height: 360px;
   background: white;
   overflow: hidden;
 }
 
-.shopCart .shopCart_list .list_content .food {
+ .shopCart-wrapper .shopCart_list .list_content .food {
   height: 38px;
   border: 1px solid #f4f4f4;
   padding: 12px 18px 12px 12px;
 }
 
-.shopCart .shopCart_list .list_content .food .desc-wrapper {
+.shopCart-wrapper .shopCart_list .list_content .food .desc-wrapper {
   float: left;
   width: 248px;
 }
 
-.shopCart .shopCart_list .list_content .food .desc-wrapper .desc-left {
+.shopCart-wrapper  .shopCart_list .list_content .food .desc-wrapper .desc-left {
   float: left;
   width: 170px;
 }
 
-.shopCart .shopCart_list .list_content .food .desc-wrapper .desc-left .name {
+.shopCart-wrapper .shopCart_list .list_content .food .desc-wrapper .desc-left .name {
   font-size: 16px;
   margin-bottom: 8px;
 
@@ -462,13 +497,13 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-.shopCart .shopCart_list .list_content .food .desc-wrapper .desc-left .unit {
+.shopCart .shopCart-wrapper  .shopCart_list .list_content .food .desc-wrapper .desc-left .unit {
   color: #b4b4b4;
   font-size: 12px;
 }
 
-.shopCart
+
+ .shopCart-wrapper 
   .shopCart_list
   .list_content
   .food
@@ -480,21 +515,29 @@ export default {
 }
 /* desc-right */
 
-.shopCart .shopCart_list .list_content .food .desc-wrapper .desc-right {
+.shopCart-wrapper .shopCart_list .list_content .food .desc-wrapper .desc-right {
   float: right;
   width: 70px;
   text-align: right;
 }
 
-.shopCart .shopCart_list .list_content .food .desc-wrapper .desc-right .price {
+ .shopCart-wrapper .shopCart_list .list_content .food .desc-wrapper .desc-right .price {
   font-size: 12px;
 }
 /* cartControl */
-.shopCart .shopCart_list .list_content .food .cartControl_wrapper {
+.shopCart-wrapper .shopCart_list .list_content .food .cartControl_wrapper {
   float: right;
 }
 /* 4)list bottom  */
 
-.shopCart .shopCart_list .list_bottom {
+.shopCart  .mask{
+  position: fixed;
+  top:0;
+  right:0;
+  width:100%;
+  height:100%;
+  z-index: 98px;
+  background:rgba(7,17,27,0.6)
+
 }
 </style>
