@@ -4,7 +4,9 @@
     <!-- For loop to build the logic(span v-for) -->
     <span v-for="(itemClass,index) in itemClasses" :key="index"  :class="itemClass" class="star-item">
     </span>
-    <!-- :class="itemClass" dynamic bind the star css value -->
+    <!-- :class="itemClass" dynamic bind the star css value like: <span class="on" class="star-item"> </span>-->
+    <!-- equal <span class="star-item on"></span> -->
+    
     <!-- {{score}} -->
   </div>
   <!-- This logic will be, for loop will render the every star's css value which bind with the dynamic binding Class

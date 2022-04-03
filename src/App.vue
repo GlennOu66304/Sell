@@ -7,6 +7,8 @@
          right is the value from the data section
     -->
 
+    
+<!-- Nav Bar -->
     <Nav />
     <router-view></router-view>
   </div>
@@ -33,7 +35,7 @@ export default {
         if (dataSource.code == 0) {
           // assing the data from api to the data section in vue
           this.poiInfo1 = dataSource.data.poi_info;
-          console.log(this.poiInfo1);
+          // console.log(this.poiInfo1);
         }
       })
       .catch(err => {
