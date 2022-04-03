@@ -76,6 +76,7 @@
           v-for="(item, index) in goods"
           :key="index"
           class="food-list food-list-hook"
+          @click="showDetails"
         >
           <!-- deailed category name -->
           <h3 class="title">{{ item.name }}</h3>
@@ -85,6 +86,7 @@
               v-for="(food, index) in item.spus"
               :key="index"
               class="food-item"
+              
             >
               <!-- 3.image methods processing; -->
               <div class="icon" :style="head_bg(food.picture)"></div>
@@ -129,6 +131,9 @@
       :selectFoods="selectFoods2"
     >
     </ShopCart>
+  
+  <Food :food="selectFood" ref="foodView"/>
+  
   </div>
 </template>
 
@@ -137,6 +142,7 @@
 import BScroll from "better-scroll";
 import ShopCart from "component/ShopCart/ShopCart.vue";
 import CartControl from "component/CartControl/CartControl.vue";
+import Food from 'component/Food/Food.vue'
 
 export default {
   name: "Goods",
@@ -148,7 +154,8 @@ export default {
       food: {},
       poiInfo: {},
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      selectFood:{}
     };
   },
 
@@ -168,7 +175,7 @@ export default {
           // console.log(this.container);
           // console.log(this.goods);
           // console.log(that.shoppingCart);
-            console.log(that.poiInfo);
+            // console.log(that.poiInfo);
           //  3.after the receiving the data and dom is loaded, then start to use the init scroll function in the methods
           // the $nextTick is a function
           // if you can not see the left side is scorlling, please open it into the resposive option, then choose 100% expand
@@ -262,6 +269,12 @@ export default {
       });
 
       return num;
+    },
+
+    showDetails(food){
+      this.selectedFood = food
+      this.$refs.foodView.showView()
+
     }
   },
 
@@ -313,7 +326,8 @@ export default {
   },
   components: {
     ShopCart,
-    CartControl
+    CartControl,
+    Food
   }
 };
 </script>

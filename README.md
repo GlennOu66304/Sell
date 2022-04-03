@@ -1,9 +1,26 @@
 
 
 ## Meituan
-vue.esm.js?efeb:628 [Vue warn]: Error in render: "TypeError: Cannot read properties of undefined (reading '0')"
 
 
+
+Goal: 
+1.click the food, then show the food details 
+
+git build new branch
+
+Problem solving:
+I.Food Dtailed Component buid(UI):
+1.set the the v-show = hide the page
+2.CSS change
+
+
+II.Functions:
+1.refs , use the function in the Childe Component(food ), to control open or close the food details tab;
+
+2.Props send to the Food details
+1) Good get the data
+2) send it into the food, in the component
 
 
 ## Dev server lost
