@@ -6,14 +6,15 @@
         <div class="food-content">
           <div class="img-wrapper">
             <img class="food-img" :src="food.picture" alt="" />
+
             <!--    III,JS
               1.change the click event from the whole page to close icon -->
             <!-- close icon -->
             <span class="close-bt icon-close" @click="closeView"></span>
             <!-- share image -->
-            <img src="./share.png" alt="" />
+            <img class="share-bt" src="./share.png" alt="" />
             <!-- more image -->
-            <img src="./more.png" alt="" />
+            <img class="more-bt" src="./more.png" alt="" />
 
             <!-- 
               1.Goal:
@@ -24,13 +25,31 @@
               4.Price unit
               II.CSS fix:
              
-
               1.close icon, share icon, more icon css fix
              2.above component UI css fix;
              3. content-wrapper in header and float fix
            
             
              -->
+          </div>
+
+          <!-- content wrapper -->
+          <div class="content-wrapper2">
+            <h3 class="name">{{ food.name }}</h3>
+            <p class="saled">{{ food.month_saled_content }}</p>
+            <!-- recommendtiona -->
+            <img
+              class="product"
+              :src="food.product_label_picture"
+              alt=""
+            />
+
+            <!-- sell price -->
+            <p class="price">
+              <span class="text">￥{{ food.min_price }}</span>
+
+              <span class="unit"> /{{ food.unit }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -98,6 +117,36 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+.food2 .food-wrapper .food-content .img-wrapper .close-bt {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  background: #7f7f7f;
+  border-radius: 58%;
+}
+
+.food2 .food-wrapper .food-content .img-wrapper .share-bt,
+.food2 .food-wrapper .food-content .img-wrapper .more-bt {
+  width: 3epx;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  right: 50px;
+}
+
+.food2 .food-wrapper .food-content .img-wrapper .share-bt {
+  right: 50px;
+}
+.food2 .food-wrapper .food-content .img-wrapper .more-bt {
+  right: 10px;
+}
+
 /* From left to right page animation */
 .detail-enter-active .detail-leave-active {
   transition: 1s;
@@ -105,5 +154,39 @@ export default {
 .detail-enter .detail-leave-to {
   transform: translateX(100%);
   /* transform: rotate(180 deg) */
+}
+.food2 .food-wrapper .food-content .content-wrapper2 {
+  padding: 0 0 16px 16px;
+}
+
+.food2 .food-wrapper .food-content .content-wrapper2 .name {
+  font-size: 15px;
+  color: #333333;
+  line-height: 30px;
+  font-weight: bold;
+}
+.food2 .food-wrapper .food-content .content-wrapper2 .saled {
+  font-size: 11px;
+  color: #9d9d9d;
+  margin-bottom: 6px;
+}
+
+.food2 .food-wrapper .food-content .content-wrapper2 .product {
+  height: 15px;
+  margin-bottom: 16px;
+}
+
+.food2 .food-wrapper .food-content .content-wrapper2 .price {
+  font-size: 0;
+}
+
+.food2 .food-wrapper .food-content .content-wrapper2 .price .text {
+  font-size: 17px;
+  color: #fb4e44;
+}
+
+.food2 .food-wrapper .food-content .content-wrapper2 .price .unit {
+  font-size:11px;
+  color: #9d9d9d;
 }
 </style>
