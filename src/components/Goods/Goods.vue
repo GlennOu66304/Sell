@@ -76,16 +76,18 @@
           v-for="(item, index) in goods"
           :key="index"
           class="food-list food-list-hook"
-          @click="showDetails"
+        
         >
           <!-- deailed category name -->
           <h3 class="title">{{ item.name }}</h3>
           <!-- 2.small category for loop; -->
+        
           <ul>
             <li
               v-for="(food, index) in item.spus"
               :key="index"
               class="food-item"
+              @click="showDetails(food)" 
               
             >
               <!-- 3.image methods processing; -->
@@ -116,7 +118,7 @@
                 </p>
               </div>
               <div class="cartControl_wrapper">
-                  <!-- the item value is from the forloop above "food value" -->
+                  <!-- choose the food value from the data-->
                 <CartControl :food="food" />
               </div>
             </li>
@@ -128,11 +130,13 @@
 
     <ShopCart
       :poiInfo="poiInfo"
+      
       :selectFoods="selectFoods2"
     >
+    <!-- selectFoods2 is a function in the method -->
     </ShopCart>
   
-  <Food :food="selectFood" ref="foodView"/>
+  <Food :food="selectedFood" ref="foodView"/>
   
   </div>
 </template>
@@ -155,7 +159,7 @@ export default {
       poiInfo: {},
       listHeight: [],
       scrollY: 0,
-      selectFood:{}
+      selectedFood:{}
     };
   },
 
@@ -323,6 +327,9 @@ export default {
       // return needs to be put outside of the two for Each, you can clapass the bracket to see the result
       return foods;
     },
+
+
+
   },
   components: {
     ShopCart,
