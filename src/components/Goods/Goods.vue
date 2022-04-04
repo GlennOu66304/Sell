@@ -50,12 +50,14 @@
           </p>
           <!-- number on the left menu:
 1.i tag to put the number 's location -->
-<!-- 4.v-show to decide if the number will display; -->
-          <i v-show="calculatedCount(item.spus) > 0" class="num">{{ calculatedCount(item.spus) }}</i>
+          <!-- 4.v-show to decide if the number will display; -->
+          <i v-show="calculatedCount(item.spus) > 0" class="num">{{
+            calculatedCount(item.spus)
+          }}</i>
         </li>
       </ul>
     </div>
-    
+
     <!-- right side -->
 
     <div ref="foodScroll" class="food-wrapper">
@@ -76,19 +78,17 @@
           v-for="(item, index) in goods"
           :key="index"
           class="food-list food-list-hook"
-        
         >
           <!-- deailed category name -->
           <h3 class="title">{{ item.name }}</h3>
           <!-- 2.small category for loop; -->
-        
+
           <ul>
             <li
               v-for="(food, index) in item.spus"
               :key="index"
               class="food-item"
-              @click="showDetails(food)" 
-              
+              @click="showDetails(food)"
             >
               <!-- 3.image methods processing; -->
               <div class="icon" :style="head_bg(food.picture)"></div>
@@ -118,7 +118,7 @@
                 </p>
               </div>
               <div class="cartControl_wrapper">
-                  <!-- choose the food value from the data-->
+                <!-- choose the food value from the data-->
                 <CartControl :food="food" />
               </div>
             </li>
@@ -127,17 +127,11 @@
       </ul>
     </div>
 
-
-    <ShopCart
-      :poiInfo="poiInfo"
-      
-      :selectFoods="selectFoods2"
-    >
-    <!-- selectFoods2 is a function in the method -->
+    <ShopCart :poiInfo="poiInfo" :selectFoods="selectFoods2">
+      <!-- selectFoods2 is a function in the method -->
     </ShopCart>
-  
-  <Food :food="selectedFood" ref="foodView"/>
-  
+
+    <Food :food="selectedFood" ref="foodView" ></Food>
   </div>
 </template>
 
@@ -146,7 +140,7 @@
 import BScroll from "better-scroll";
 import ShopCart from "component/ShopCart/ShopCart.vue";
 import CartControl from "component/CartControl/CartControl.vue";
-import Food from 'component/Food/Food.vue'
+import Food from "component/Food/Food.vue";
 
 export default {
   name: "Goods",
@@ -159,7 +153,7 @@ export default {
       poiInfo: {},
       listHeight: [],
       scrollY: 0,
-      selectedFood:{}
+      selectedFood: {}
     };
   },
 
@@ -179,7 +173,7 @@ export default {
           // console.log(this.container);
           // console.log(this.goods);
           // console.log(that.shoppingCart);
-            // console.log(that.poiInfo);
+          // console.log(that.poiInfo);
           //  3.after the receiving the data and dom is loaded, then start to use the init scroll function in the methods
           // the $nextTick is a function
           // if you can not see the left side is scorlling, please open it into the resposive option, then choose 100% expand
@@ -261,9 +255,9 @@ export default {
       // 3)scrollToElement function to head to the that area
       this.food.scrollToElement(vm, 250);
     },
-// 2.Methods function to calculate the number of the area:
-// b.small area's count number forEach:spus:
-     calculatedCount(spus) {
+    // 2.Methods function to calculate the number of the area:
+    // b.small area's count number forEach:spus:
+    calculatedCount(spus) {
       let num = 0;
       spus.forEach(item => {
         if (item.count > 0) {
@@ -275,10 +269,9 @@ export default {
       return num;
     },
 
-    showDetails(food){
-      this.selectedFood = food
-      this.$refs.foodView.showView()
-
+    showDetails(food) {
+      this.selectedFood = food;
+      this.$refs.foodView.showView();
     }
   },
 
@@ -326,10 +319,7 @@ export default {
       });
       // return needs to be put outside of the two for Each, you can clapass the bracket to see the result
       return foods;
-    },
-
-
-
+    }
   },
   components: {
     ShopCart,
@@ -371,7 +361,7 @@ flex-basis:width and height
 .goods1 .menu-wrapper .menu-item {
   padding: 18px 23px 15px 10px;
   border-bottom: 1px solid #e4e4e4;
-  position:relative;
+  position: relative;
 }
 
 /* 3)apply css to the current index; */
@@ -401,18 +391,18 @@ flex-basis:width and height
   vertical-align: middle;
 }
 /* 3.CSS:layout of the i tag'; */
-.goods1 .menu-wrapper .menu-item .num{
-width:13px;
-height:13px;
-border-radius:50%;
-position:absolute;
-top:5px;
-right:5px;
-color:white;
-background:red;
-text-align:center;
-font-size:10px;
-line-height:13px;
+.goods1 .menu-wrapper .menu-item .num {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  background: red;
+  text-align: center;
+  font-size: 10px;
+  line-height: 13px;
 }
 /* Right Food section CSS */
 .goods1 .food-wrapper {

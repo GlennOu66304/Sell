@@ -1,126 +1,118 @@
-
-
-
 <template>
   <div class="shopCart" :class="{ highLight: totalNumber > 0 }">
     <div class="shopCart-wrapper">
+      <!-- Shopping Cart Wrapper -->
+      <!-- lay out write: -->
 
-          <!-- Shopping Cart Wrapper -->
-    <!-- lay out write: -->
-
-    <div class="left_content">
-      <!-- logo -->
-      <!--  :class="{ highLight: totalCount > 0 }"
+      <div class="left_content">
+        <!-- logo -->
+        <!--  :class="{ highLight: totalCount > 0 }"
 className:highlight
 totalCount > 0 it is the condition from the computed function totalCount
 computed function to decide if the color will turn to yellow
  -->
-      <div
-        class="logoWrapper"
-        :class="{ highLight: totalNumber > 0 }"
-        @click="toggleList"
-      >
-        <span
-          class="icon-shopping_cart"
+        <div
+          class="logoWrapper"
           :class="{ highLight: totalNumber > 0 }"
+          @click="toggleList"
         >
-        </span>
-        <!-- total number of the item -->
+          <span
+            class="icon-shopping_cart"
+            :class="{ highLight: totalNumber > 0 }"
+          >
+          </span>
+          <!-- total number of the item -->
 
-        <!-- v-show will decide if it will display the total price and total  number  -->
-        <i class="total_number" v-show="totalNumber">{{ totalNumber }}</i>
+          <!-- v-show will decide if it will display the total price and total  number  -->
+          <i class="total_number" v-show="totalNumber">{{ totalNumber }}</i>
+        </div>
+        <div class="desWrapper">
+          <!-- total price -->
+          <p class="total_price" v-show="totalPrice">￥{{ totalPrice }}</p>
+          <!-- delivery tips -->
+          <p class="tip" :class="{ highLight: totalNumber > 0 }">
+            另需{{ poiInfo.shipping_fee_tip }}
+          </p>
+        </div>
       </div>
-      <div class="desWrapper">
-        <!-- total price -->
-        <p class="total_price" v-show="totalPrice">￥{{ totalPrice }}</p>
-        <!-- delivery tips -->
-        <p class="tip" :class="{ highLight: totalNumber > 0 }">
-          另需{{ poiInfo.shipping_fee_tip }}
-        </p>
+
+      <div class="right_content" :class="{ highLight: totalNumber > 0 }">
+        <!-- min delivery fee -->
+        {{ payment }}
       </div>
-    </div>
 
-    <div class="right_content" :class="{ highLight: totalNumber > 0 }">
-      <!-- min delivery fee -->
-      {{ payment }}
-    </div>
+      <!-- 1.html write: shop-cart list section -->
 
-    <!-- 1.html write: shop-cart list section -->
-
-    <!-- Class and Style Bindings -->
-    <div  v-show="listShow" class="shopCart_list" :class="{ show: listShow }">
-
-      <!-- first area discount number top -->
-      <!-- v-if can fix the bug error:vue: Uncaught TypeError: Cannot read property ... of undefined 
+      <!-- Class and Style Bindings -->
+      <div v-show="listShow" class="shopCart_list" :class="{ show: listShow }">
+        <!-- first area discount number top -->
+        <!-- v-if can fix the bug error:vue: Uncaught TypeError: Cannot read property ... of undefined 
       vue: Uncaught TypeError: Cannot read property ... of undefined
       https://stackoverflow.com/questions/41051972/vue-uncaught-typeerror-cannot-read-property-of-undefined
       
       
       -->
-        <div v-show="poiInfo.discounts2" class="list_Top" v-if=" poiInfo.discounts2">
-        {{ poiInfo.discounts2[0].info }}
-      </div>
-
-
-
-      <!-- second area header -->
-   <div class="list_Head">
-        <!-- 1)number bags -->
-        <h3 class="title">1号口袋</h3>
-<!-- Goal: click the clear text, then food number = 0 
-1.add a click under the clear text; -->
-        <div class="empty" @click="empty">
-          <!-- 2)icon -->
-          <img src="./ash_bin.png" alt="" />
-          <!-- 3)clear the shopping cart -->
-          <span>清空购物袋</span>
+        <div
+          v-show="poiInfo.discounts2"
+          class="list_Top"
+          v-if="poiInfo.discounts2"
+        >
+          {{ poiInfo.discounts2[0].info }}
         </div>
-      </div>
 
+        <!-- second area header -->
+        <div class="list_Head">
+          <!-- 1)number bags -->
+          <h3 class="title">1号口袋</h3>
+          <!-- Goal: click the clear text, then food number = 0 
+1.add a click under the clear text; -->
+          <div class="empty" @click="empty">
+            <!-- 2)icon -->
+            <img src="./ash_bin.png" alt="" />
+            <!-- 3)clear the shopping cart -->
+            <span>清空购物袋</span>
+          </div>
+        </div>
 
-      <!-- .third area: content -->
+        <!-- .third area: content -->
 
-  <div ref="shopCartList"  class="list_content">
-        <ul >
-          <li v-for="(item, index) in selectFoods" :key="index" class="food">
-            <div class="desc-wrapper">
-              <div class="desc-left">
-                <!-- 1)food name -->
-                <p class="name">{{ item.name }}</p>
-                <!-- 2)unit -->
-                <p v-show="item.unit" class="unit">例</p>
-                <!-- description -->
-                <p v-show="item.descrption" class="description">
-                  {{ item.descrption }}
-                </p>
+        <div ref="shopCartList" class="list_content">
+          <ul>
+            <li v-for="(item, index) in selectFoods" :key="index" class="food">
+              <div class="desc-wrapper">
+                <div class="desc-left">
+                  <!-- 1)food name -->
+                  <p class="name">{{ item.name }}</p>
+                  <!-- 2)unit -->
+                  <p v-show="item.unit" class="unit">例</p>
+                  <!-- description -->
+                  <p v-show="item.descrption" class="description">
+                    {{ item.descrption }}
+                  </p>
+                </div>
+
+                <!-- right side content -->
+                <div class="desc-right">
+                  <!-- 3)food price -->
+                  <span class="price">￥{{ item.min_price }}</span>
+                </div>
               </div>
 
-              <!-- right side content -->
-              <div class="desc-right">
-                <!-- 3)food price -->
-                <span class="price">￥{{ item.min_price }}</span>
+              <!-- 4)cart Control -->
+              <div class="cartControl_wrapper">
+                <!-- the item value is from the forloop above "item value" not from the data or props section -->
+                <CartControl :food="item" />
               </div>
-            </div>
+            </li>
+          </ul>
+        </div>
 
-            <!-- 4)cart Control -->
-            <div class="cartControl_wrapper">
-              <!-- the item value is from the forloop above "item value" not from the data or props section -->
-              <CartControl :food="item" />
-            </div>
-          </li>
-        </ul>
+        <!-- fourth area:1) gray area bottom -->
+        <!-- <div class="list_bottom"></div> -->
       </div>
-
-
-      <!-- fourth area:1) gray area bottom -->
-      <!-- <div class="list_bottom"></div> -->
-
-
-    </div>
-
-    </div>
-<!-- the mask area -->
-<!-- // Goal:
+    
+    <!-- the mask area -->
+    <!-- // Goal:
 // 1.add the mask area to the shopping cart;
 // 2.When you click the mask area, it will go back to normal;
 // 3.only show the mask area when there is value in the shoping cart
@@ -133,8 +125,10 @@ computed function to decide if the color will turn to yellow
 // 1.v-show manage the display
 // 2.click the item to thow the mask -->
 
-<div class="mask" v-show="listShow" @click="hideMask"></div>
-
+    
+ </div>
+ 
+ <div class="mask" v-show="listShow" @click="hideMask"></div>
   </div>
 </template>
 
@@ -242,9 +236,9 @@ export default {
 
       let show = !this.hide;
 
-// BScroll:1.scroll the shop cart list:
+      // BScroll:1.scroll the shop cart list:
 
-// 2)start to use this feature
+      // 2)start to use this feature
       if (show) {
         this.$nextTick(() => {
           if (!this.shopScroll) {
@@ -257,22 +251,22 @@ export default {
         });
       }
 
-// The reason why here does not show the scroll option, becasue:
-// 1.it is the BScrll not Bsscroll in the import package section;
-// 2.shopCartlist has the same ref in the class shopCart_list option, make sure there is only one in the class list content location section
-// 3.at least have 9 items in the list, so it can scroll;
+      // The reason why here does not show the scroll option, becasue:
+      // 1.it is the BScrll not Bsscroll in the import package section;
+      // 2.shopCartlist has the same ref in the class shopCart_list option, make sure there is only one in the class list content location section
+      // 3.at least have 9 items in the list, so it can scroll;
 
-  //  if (show) {
-   
-  //      if (!this.shopScroll) {
-  //           this.shopScroll = new BScroll(this.$refs.shopCartList, {
-  //             click: true
-  //           });
-  //         } else {
-  //           this.shopScroll.refresh();
-  //         }
-  //       };
-    
+      //  if (show) {
+
+      //      if (!this.shopScroll) {
+      //           this.shopScroll = new BScroll(this.$refs.shopCartList, {
+      //             click: true
+      //           });
+      //         } else {
+      //           this.shopScroll.refresh();
+      //         }
+      //       };
+
       return show; // false display the shopCartlist tab
 
       // here the content will not display on the page, but will show in deve tool element
@@ -302,30 +296,27 @@ export default {
       }
       this.hide = !this.hide;
     },
-//     2.add a empty method
-// 3.for each loop the this.selecteFoods array
-// 3.set the selected food's count = 0
-    empty(){
-      this.selectFoods.forEach((item)=>{
+    //     2.add a empty method
+    // 3.for each loop the this.selecteFoods array
+    // 3.set the selected food's count = 0
+    empty() {
+      this.selectFoods.forEach(item => {
         item.count = 0;
-
       });
     },
 
-    hideMask(){
-      this.hide=true
+    hideMask() {
+      this.hide = true;
     }
   },
 
   components: {
-    CartControl,
-   
+    CartControl
   }
 };
 </script>
 
 <style>
-
 /* in order to make sure the css apply, you need to change the shopCart to the
 .shopCart-wrapper */
 .shopCart-wrapper {
@@ -336,16 +327,16 @@ export default {
   position: fixed;
   bottom: 0;
   display: flex;
-  z-index:99;
+  z-index: 99;
 }
-.shopCart-wrapper heighLine {
+.shopCart-wrapper .highlight {
   background: #2d2b2a;
 }
 /* 1)flex mode box left and right */
-.shopCart .left_content {
+.shopCart-wrapper .left_content {
   flex: 1;
 }
- .shopCart-wrapper .left_content .logoWrapper {
+.shopCart-wrapper .left_content .logoWrapper {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -359,11 +350,11 @@ export default {
   float: left;
 }
 /* highLight Color fix left part */
- .shopCart-wrapper  .left_content .logoWrapper.highLight {
+.shopCart-wrapper .left_content .logoWrapper.highLight {
   background: #ffd161;
 }
 
-.shopCart-wrapper  .left_content .logoWrapper span {
+.shopCart-wrapper .left_content .logoWrapper span {
   font-size: 28px;
   color: #c4c4c4;
   line-height: 50px;
@@ -372,7 +363,7 @@ export default {
   color: #202b2a;
 }
 
- .shopCart-wrapper  .left_content .logoWrapper .total_number {
+.shopCart-wrapper .left_content .logoWrapper .total_number {
   width: 15px;
   height: 15px;
   line-height: 15px;
@@ -385,24 +376,24 @@ export default {
   right: 0;
 }
 
-.shopCart-wrapper  .left_content .desWrapper {
+.shopCart-wrapper .left_content .desWrapper {
   float: left;
   margin-left: 13px;
 }
 
-.shopCart-wrapper  .left_content .desWrapper .total_price {
+.shopCart-wrapper .left_content .desWrapper .total_price {
   color: white;
   height: 19px;
   line-height: 33px;
 }
 
- .shopCart-wrapper .left_content .desWrapper .tip {
+.shopCart-wrapper .left_content .desWrapper .tip {
   font-size: 12px;
   color: #bab9b9;
   font-weight: bold;
   line-height: 50px;
 }
- .shopCart-wrapper  .left_content .desWrapper .tip.highLight {
+.shopCart-wrapper .left_content .desWrapper .tip.highLight {
   line-height: 12px;
   margin-top: 10px;
 }
@@ -417,7 +408,7 @@ export default {
 }
 
 /* highLight Color fix  right payment box*/
- .shopCart-wrapper .right_content.highLight {
+.shopCart-wrapper .right_content.highLight {
   background: #ffd161;
   color: #202b2a;
 }
@@ -431,11 +422,11 @@ export default {
   width: 100%;
 }
 
- .shopCart-wrapper .shopCart_list.show {
+.shopCart-wrapper .shopCart_list.show {
   transform: translateY(-100%);
 }
 /* 1)list top */
- .shopCart_list .list_Top {
+.shopCart-wrapper .shopCart_list .list_Top {
   color: #646158;
   background: #f3e6c6;
   height: 30px;
@@ -447,7 +438,7 @@ export default {
 
 /* 2)list head */
 
-.shopCart-wrapper  .shopCart_list .list_Head {
+.shopCart-wrapper .shopCart_list .list_Head {
   background: #f4f4f4;
   height: 30px;
 }
@@ -485,7 +476,7 @@ export default {
   overflow: hidden;
 }
 
- .shopCart-wrapper .shopCart_list .list_content .food {
+.shopCart-wrapper .shopCart_list .list_content .food {
   height: 38px;
   border: 1px solid #f4f4f4;
   padding: 12px 18px 12px 12px;
@@ -496,12 +487,18 @@ export default {
   width: 248px;
 }
 
-.shopCart-wrapper  .shopCart_list .list_content .food .desc-wrapper .desc-left {
+.shopCart-wrapper .shopCart_list .list_content .food .desc-wrapper .desc-left {
   float: left;
   width: 170px;
 }
 
-.shopCart-wrapper .shopCart_list .list_content .food .desc-wrapper .desc-left .name {
+.shopCart-wrapper
+  .shopCart_list
+  .list_content
+  .food
+  .desc-wrapper
+  .desc-left
+  .name {
   font-size: 16px;
   margin-bottom: 8px;
 
@@ -510,13 +507,18 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.shopCart .shopCart-wrapper  .shopCart_list .list_content .food .desc-wrapper .desc-left .unit {
+.shopCart-wrapper
+  .shopCart_list
+  .list_content
+  .food
+  .desc-wrapper
+  .desc-left
+  .unit {
   color: #b4b4b4;
   font-size: 12px;
 }
 
-
- .shopCart-wrapper 
+.shopCart-wrapper
   .shopCart_list
   .list_content
   .food
@@ -534,7 +536,13 @@ export default {
   text-align: right;
 }
 
- .shopCart-wrapper .shopCart_list .list_content .food .desc-wrapper .desc-right .price {
+.shopCart-wrapper
+  .shopCart_list
+  .list_content
+  .food
+  .desc-wrapper
+  .desc-right
+  .price {
   font-size: 12px;
 }
 /* cartControl */
@@ -543,14 +551,15 @@ export default {
 }
 /* 4)list bottom  */
 
-.shopCart  .mask{
+.shopCart .mask {
   position: fixed;
-  top:0;
-  right:0;
-  width:100%;
-  height:100%;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
   z-index: 98px;
-  background:rgba(7,17,27,0.6)
-
+  background: rgba(7, 17, 27, 0.6);
+  
+  
 }
 </style>
