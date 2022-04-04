@@ -78,17 +78,28 @@
           v-for="(item, index) in goods"
           :key="index"
           class="food-list food-list-hook"
+<<<<<<< HEAD
+=======
+          @click="showDetails"
+>>>>>>> parent of bf1642e (shopCartdispaly)
         >
           <!-- deailed category name -->
           <h3 class="title">{{ item.name }}</h3>
           <!-- 2.small category for loop; -->
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of bf1642e (shopCartdispaly)
           <ul>
             <li
               v-for="(food, index) in item.spus"
               :key="index"
               class="food-item"
+<<<<<<< HEAD
               @click="showDetails(food)"
+=======
+              
+>>>>>>> parent of bf1642e (shopCartdispaly)
             >
               <!-- 3.image methods processing; -->
               <div class="icon" :style="head_bg(food.picture)"></div>
@@ -118,7 +129,11 @@
                 </p>
               </div>
               <div class="cartControl_wrapper">
+<<<<<<< HEAD
                 <!-- choose the food value from the data-->
+=======
+                  <!-- the item value is from the forloop above "food value" -->
+>>>>>>> parent of bf1642e (shopCartdispaly)
                 <CartControl :food="food" />
               </div>
             </li>
@@ -127,11 +142,23 @@
       </ul>
     </div>
 
+<<<<<<< HEAD
     <ShopCart :poiInfo="poiInfo" :selectFoods="selectFoods2">
       <!-- selectFoods2 is a function in the method -->
     </ShopCart>
 
     <Food :food="selectedFood" ref="foodView" ></Food>
+=======
+
+    <ShopCart
+      :poiInfo="poiInfo"
+      :selectFoods="selectFoods2"
+    >
+    </ShopCart>
+  
+  <Food :food="selectFood" ref="foodView"/>
+  
+>>>>>>> parent of bf1642e (shopCartdispaly)
   </div>
 </template>
 
@@ -153,7 +180,11 @@ export default {
       poiInfo: {},
       listHeight: [],
       scrollY: 0,
+<<<<<<< HEAD
       selectedFood: {}
+=======
+      selectFood:{}
+>>>>>>> parent of bf1642e (shopCartdispaly)
     };
   },
 
@@ -319,7 +350,11 @@ export default {
       });
       // return needs to be put outside of the two for Each, you can clapass the bracket to see the result
       return foods;
+<<<<<<< HEAD
     }
+=======
+    },
+>>>>>>> parent of bf1642e (shopCartdispaly)
   },
   components: {
     ShopCart,

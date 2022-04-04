@@ -3,14 +3,25 @@
 ## Meituan
 
 
-Goal:
-1.click the plus icon and decrease icon will not go to the food details page;
-2.food details page will show the img page(page responsive)
 
-Probleme:
-1.事件冒泡 fix the event feature;
-2.img wrapper, img
-3.css fix the lay out issu
+Goal: 
+1.click the food, then show the food details 
+
+git build new branch
+
+Problem solving:
+I.Food Dtailed Component buid(UI):
+1.set the the v-show = hide the page
+2.CSS change
+
+
+II.Functions:
+1.refs , use the function in the Childe Component(food ), to control open or close the food details tab;
+
+2.Props send to the Food details
+1) Good get the data
+2) send it into the food, in the component
+
 
 ## Dev server lost
 [why there is no dev-client.js and dev-server.js in the project's builder folder?](https://www.udemy.com/course/vuejs-app/learn/lecture/8476936#questions/3675486)  
