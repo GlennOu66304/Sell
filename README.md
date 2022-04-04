@@ -1,8 +1,10 @@
 
 
 ## Meituan
+vue.esm.js?efeb:628 [Vue warn]: Error in render: "TypeError: Cannot read properties of undefined (reading '0')"
 
 
+<<<<<<< HEAD
 Goal:
 1.click the plus icon and decrease icon will not go to the food details page;
 2.food details page will show the img page(page responsive)
@@ -11,6 +13,9 @@ Probleme:
 1.事件冒泡 fix the event feature;
 2.img wrapper, img
 3.css fix the lay out issu
+=======
+
+>>>>>>> 1baf0c5 (start)
 
 ## Dev server lost
 [why there is no dev-client.js and dev-server.js in the project's builder folder?](https://www.udemy.com/course/vuejs-app/learn/lecture/8476936#questions/3675486)  

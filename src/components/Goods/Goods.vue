@@ -72,6 +72,7 @@
         </li>
 
         <!-- 1. detailed category for loop; -->
+         <!-- @click="showDetails" -->
         <li
           v-for="(item, index) in goods"
           :key="index"
@@ -158,6 +159,7 @@ export default {
       food: {},
       poiInfo: {},
       listHeight: [],
+
       scrollY: 0,
       selectedFood:{}
     };

@@ -1,7 +1,7 @@
 <template>
   <transition name="detail">
     <!-- close foodDetails -->
-    <div v-show="showFlag" class="food">
+    <div v-show="showFlag" class="food2">
       <div class="food-wrapper">
         <div class="food-content">
           <div class="img-wrapper">
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style>
-.food {
+.food2 {
   position: fixed;
   top: 0;
   left: 0;
@@ -84,14 +84,14 @@ export default {
   z-index: 90;
 }
 
-.food .food-wrapper .food-content .img-wrapper {
+.food2 .food-wrapper .food-content .img-wrapper {
   position: relative;
   width: 100%;
   height: 0;
   padding-top: 100%;
 }
 
-.food .food-wrapper .food-content .img-wrapper .food-img {
+.food2 .food-wrapper .food-content .img-wrapper .food-img {
   position: absolute;
   left: 0;
   bottom: 0;
