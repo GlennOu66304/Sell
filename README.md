@@ -1,6 +1,16 @@
+## Goal:
+
+it will show the cartcontrol button
+
+aloso the text
+
+click the cart control will add the shopcart number
 
 
 
+Process
+
+c
 
 ## CSS Book Collection:
 

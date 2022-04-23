@@ -38,12 +38,7 @@
             <h3 class="name">{{ food.name }}</h3>
             <p class="saled">{{ food.month_saled_content }}</p>
             <!-- recommendtiona -->
-            <img
-              class="product"
-             
-              :src="food.product_label_picture"
-              alt=""
-            />
+            <img class="product" :src="food.product_label_picture" alt="" />
 
             <!-- sell price -->
             <p class="price">
@@ -51,6 +46,12 @@
 
               <span class="unit"> /{{ food.unit }}</span>
             </p>
+
+            <div class="cartControlWrapper">
+              <CartControl :food="food"/>
+
+            </div>
+            <div @click="addClick" class="buy" v-show="!food.count || food.count == 0">选择规格</div>
           </div>
         </div>
       </div>
@@ -59,6 +60,8 @@
 </template>
 
 <script>
+import CartControl from '../CartControl/CartControl.vue'
+import Vue from 'vue'
 export default {
   name: "Food",
   props: {
@@ -78,7 +81,15 @@ export default {
     },
     closeView() {
       this.showFlag = false;
+    },
+    addClick(){
+      // set the initial number as 1
+      //then i++ add the number
+      Vue.set(this.food,"count",'1')
     }
+  },
+  components: {
+    CartControl
   }
 };
 
@@ -158,6 +169,7 @@ export default {
 }
 .food2 .food-wrapper .food-content .content-wrapper2 {
   padding: 0 0 16px 16px;
+  position: relative;
 }
 
 .food2 .food-wrapper .food-content .content-wrapper2 .name {
@@ -187,7 +199,26 @@ export default {
 }
 
 .food2 .food-wrapper .food-content .content-wrapper2 .price .unit {
-  font-size:11px;
+  font-size: 11px;
   color: #9d9d9d;
+}
+
+.food2 .food-wrapper .food-content .content-wrapper2 .cartControlWrapper {
+  position:absolute;
+  right: 12px;
+  bottom: 12px;
+}
+.food2 .food-wrapper .food-content .content-wrapper2 .buy{
+width:64px;
+height:30px;
+font-size: 12px;
+line-height: 30px;
+text-align:center;
+background:#FFd161;
+border-radius: 30px;
+position:absolute;
+right: 12px;
+bottom:10px;
+padding:2px;
 }
 </style>
