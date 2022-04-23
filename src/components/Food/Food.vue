@@ -40,6 +40,7 @@
             <!-- recommendtiona -->
             <img
               class="product"
+             
               :src="food.product_label_picture"
               alt=""
             />

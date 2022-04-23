@@ -1,10 +1,19 @@
 
 
+
+
+## CSS Book Collection:
+
+CSS 权威指南
+
+[CSS权威指南](https://github.com/linghuam/boutique-books/blob/master/b05-HTML%E4%B8%8ECSS/CSS%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-%E7%AC%AC%E4%B8%89%E7%89%88.pdf)
+
+**《精通 CSS**>>
+
+**CSS Secrets**
+
 ## Meituan
-vue.esm.js?efeb:628 [Vue warn]: Error in render: "TypeError: Cannot read properties of undefined (reading '0')"
 
-
-<<<<<<< HEAD
 Goal:
 1.click the plus icon and decrease icon will not go to the food details page;
 2.food details page will show the img page(page responsive)
@@ -12,11 +21,7 @@ Goal:
 Probleme:
 1.事件冒泡 fix the event feature;
 2.img wrapper, img
-3.css fix the lay out issu
-=======
-
->>>>>>> 1baf0c5 (start)
-
+## 3.css fix the lay out issu
 ## Dev server lost
 [why there is no dev-client.js and dev-server.js in the project's builder folder?](https://www.udemy.com/course/vuejs-app/learn/lecture/8476936#questions/3675486)  
 
