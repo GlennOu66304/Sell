@@ -7,9 +7,8 @@
          right is the value from the data section
     -->
 
-    
-<!-- Nav Bar -->
-    <Nav />
+    <!-- Nav Bar -->
+    <Nav :commentNum="commentNum" />
     <router-view></router-view>
   </div>
 </template>
@@ -22,12 +21,14 @@ export default {
   name: "App",
   data() {
     return {
-      poiInfo1: {}
+      poiInfo1: {},
+      commentNum: 0
     };
   },
 
   // axios get the data from the api
   created() {
+    // goods data
     this.$axios
       .get("/api/goods")
       .then(res => {
@@ -36,6 +37,21 @@ export default {
           // assing the data from api to the data section in vue
           this.poiInfo1 = dataSource.data.poi_info;
           // console.log(this.poiInfo1);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // review data
+    this.$axios
+      .get("/api/ratings")
+      .then(res => {
+        var dataSource = res.data;
+        // console.log(dataSource);
+        if (dataSource.code == 0) {
+          // assing the data from api to the data section in vue
+          this.commentNum = dataSource.data.comment_num;
+          console.log(this.commentNum);
         }
       })
       .catch(err => {

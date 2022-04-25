@@ -6,13 +6,12 @@
       <i class="line"></i>
     </router-link>
 
-<!-- review -->
+    <!-- review -->
     <router-link to="/ratings" class="nav-item rating">
-      评价
-      <i class="line"></i
+      评价({{ commentNum }}) <i class="line"></i
     ></router-link>
 
-<!-- seller -->
+    <!-- seller -->
     <router-link to="/seller" class="nav-item seller">
       商家
       <i class="line"></i>
@@ -22,6 +21,12 @@
 
 <script>
 export default {
+  props: {
+    commentNum: {
+      type: Number,
+      default: 0
+    }
+  },
   name: "Nav"
 };
 </script>
@@ -42,7 +47,7 @@ export default {
   text-decoration: none;
   color: #666666;
   /* golden line and name of the item */
-  position:relative;
+  position: relative;
 }
 .nav .active {
   color: #ffbb22;

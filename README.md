@@ -1,16 +1,16 @@
 ## Goal
 
-1.change the color of the right to gray
-
-2.left section show the icon, right section show the rating content
+the rating could show the number of the rating
 
 
 
 ## Process
 
-css color change
 
-left icon section fix
+
+ge the data in the app.vue
+
+send this data into the nav.vue chid component
 
 ## CSS Book Collection:
 
