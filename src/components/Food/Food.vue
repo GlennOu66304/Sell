@@ -1,7 +1,7 @@
 <template>
   <transition name="detail">
     <!-- close foodDetails -->
-    <div v-show="showFlag" class="food2" ref="foodView">
+    <div v-show="showFlag" ref="foodView" class="food2">
       <!-- food area -->
       <div class="food-wrapper">
         <div class="food-content">
@@ -67,7 +67,7 @@
             <!-- ratio and comment -->
             <div class="like-ratio" v-if="food.rating">
               <span class="title">{{ food.rating.title }}</span>
-              <span 
+              <span class="ratio-desc"
                 >{{ food.rating.like_ratio_desc }}
 
                 <i class="ratio">{{ food.rating.like_ratio }}</i>
@@ -76,12 +76,44 @@
 
             <!-- how many review -->
             <div class="snd-title" v-if="food.rating">
-              <span>{{ food.rating.snd_title }}</span>
+              <span class="text">{{ food.rating.snd_title }}</span>
               <span class="icon icon-keyboard_arrow_right"></span>
             </div>
           </div>
+          <!-- 2.left section show the icon, right section show the rating content -->
+          <ul class="rating-content" v-if="food.rating">
+            <li
+              v-for="(item, index) in food.rating.comment_list"
+              :key="index"
+              class="comment-item"
+            >
+              <!-- icon -->
+              <div class="userIcon">
+                <!-- display the when there is no image from the back end -->
+                <img src="./anonymity.png" alt="" v-if="!item.user_icon" />
 
-          <ul class="rating-content"></ul>
+                <img :src="item.user_icon" alt="" v-if="item.user_icon" />
+              </div>
+
+              <!-- rating content -->
+              <div class="commentMain">
+                <!-- username -->
+                <div class="user">
+                  {{ item.user_name }}
+                </div>
+
+                <!-- time -->
+                <div class="time">
+                  {{ item.comment_time }}
+                </div>
+
+                <!-- text -->
+                <div class="content">
+                  {{ item.comment_content }}
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -112,10 +144,9 @@ export default {
 
       this.$nextTick(() => {
         if (!this.scroll) {
-          (this.scroll = new BScroll(this.$refs.foodView)),
-            {
-              click: true
-            };
+          this.scroll = new BScroll(this.$refs.foodView, {
+            click: true
+          });
         } else {
           this.scroll.refresh();
         }
@@ -277,25 +308,111 @@ export default {
   padding-left: 16px;
 }
 
-.food2 .food-wrapper .rating-wrapper .rating-title{
-  padding:16px 16px 16px 0;
+.food2 .food-wrapper .rating-wrapper .rating-title {
+  padding: 16px 16px 16px 0;
 }
 
-.food2 .food-wrapper .rating-wrapper .rating-title .title{
+.food2 .food-wrapper .rating-wrapper .rating-title .title {
   font-size: 13px;
 }
 
 .food2 .food-wrapper .rating-wrapper .rating-title .like-ratio {
   float: left;
 }
+.food2 .food-wrapper .rating-wrapper .rating-title .like-ratio .ratio-desc {
+  font-size: 13px;
+}
 
-.food2 .food-wrapper .rating-wrapper .rating-title .like-ratio .ratio{
-  color:#fb4e44;
-  font-size: 11px;
-
+.food2 .food-wrapper .rating-wrapper .rating-title .like-ratio .ratio {
+  color: hsl(3, 96%, 63%);
+  font-size: 13px;
 }
 
 .food2 .food-wrapper .rating-wrapper .rating-title .snd-title {
   float: right;
+}
+
+.food2 .food-wrapper .rating-wrapper .rating-title .snd-title .text,
+.food2 .food-wrapper .rating-wrapper .rating-title .snd-title .icon {
+  font-size: 13px;
+  color: #9d9d9d;
+  display: inline-block;
+}
+
+/*
+1. username and time need to be in 1 row(float left, float right),
+2.icon section and comment section is two column
+3.scroll section
+*/
+.food2 .food-wrapper .rating-wrapper .rating-content .comment-item {
+  padding: 15px 14px 17px 0;
+  border-bottom: 1px solid #f4f4f4;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.food2 .food-wrapper .rating-wrapper .rating-content .comment-item .userIcon {
+  flex: 0 0 41px;
+  margin-right: 10px;
+}
+.food2
+  .food-wrapper
+  .rating-wrapper
+  .rating-content
+  .comment-item
+  .userIcon
+  img {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+}
+.food2
+  .food-wrapper
+  .rating-wrapper
+  .rating-content
+  .comment-item
+  .commentMain {
+  flex: 1;
+  margin-top: 6px;
+}
+
+.food2
+  .food-wrapper
+  .rating-wrapper
+  .rating-content
+  .comment-item
+  .commentMain
+  .user {
+  width: 50%;
+  float: left;
+  font-size: 12px;
+  color: #333333;
+}
+
+.food2
+  .food-wrapper
+  .rating-wrapper
+  .rating-content
+  .comment-item
+  .commentMain
+  .time {
+  width: 50%;
+  float: right;
+  font-size: 10px;
+  text-align: right;
+  color: #666666;
+}
+
+.food2
+  .food-wrapper
+  .rating-wrapper
+  .rating-content
+  .comment-item
+  .commentMain
+  .content {
+  margin-top: 17px;
+  font-size: 13px;
+  line-height: 19px;
 }
 </style>

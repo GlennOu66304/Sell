@@ -1,20 +1,16 @@
-## Goal:
+## Goal
 
-1.it could have the Bscroll option
+1.change the color of the right to gray
 
-2.show the gray split section
-
-3.show the comment section
+2.left section show the icon, right section show the rating content
 
 
 
-## Process:
+## Process
 
-1.import the Scroll package
+css color change
 
-2.import the gray split section
-
-3.build the comment section
+left icon section fix
 
 ## CSS Book Collection:
 
