@@ -1,7 +1,8 @@
 <template>
   <transition name="detail">
     <!-- close foodDetails -->
-    <div v-show="showFlag" class="food2">
+    <div v-show="showFlag" class="food2" ref="foodView">
+      <!-- food area -->
       <div class="food-wrapper">
         <div class="food-content">
           <div class="img-wrapper">
@@ -48,11 +49,39 @@
             </p>
 
             <div class="cartControlWrapper">
-              <CartControl :food="food"/>
-
+              <CartControl :food="food" />
             </div>
-            <div @click="addClick" class="buy" v-show="!food.count || food.count == 0">选择规格</div>
+            <div
+              @click="addClick"
+              class="buy"
+              v-show="!food.count || food.count == 0"
+            >
+              选择规格
+            </div>
           </div>
+        </div>
+        <Split />
+        <!-- rating area -->
+        <div class="rating-wrapper">
+          <div class="rating-title">
+            <!-- ratio and comment -->
+            <div class="like-ratio" v-if="food.rating">
+              <span class="title">{{ food.rating.title }}</span>
+              <span 
+                >{{ food.rating.like_ratio_desc }}
+
+                <i class="ratio">{{ food.rating.like_ratio }}</i>
+              </span>
+            </div>
+
+            <!-- how many review -->
+            <div class="snd-title" v-if="food.rating">
+              <span>{{ food.rating.snd_title }}</span>
+              <span class="icon icon-keyboard_arrow_right"></span>
+            </div>
+          </div>
+
+          <ul class="rating-content"></ul>
         </div>
       </div>
     </div>
@@ -60,8 +89,10 @@
 </template>
 
 <script>
-import CartControl from '../CartControl/CartControl.vue'
-import Vue from 'vue'
+import CartControl from "../CartControl/CartControl.vue";
+import BScroll from "better-scroll";
+import Split from "../split/split.vue";
+import Vue from "vue";
 export default {
   name: "Food",
   props: {
@@ -78,18 +109,31 @@ export default {
   methods: {
     showView() {
       this.showFlag = true;
+
+      this.$nextTick(() => {
+        if (!this.scroll) {
+          (this.scroll = new BScroll(this.$refs.foodView)),
+            {
+              click: true
+            };
+        } else {
+          this.scroll.refresh();
+        }
+      });
     },
     closeView() {
       this.showFlag = false;
     },
-    addClick(){
+    addClick() {
       // set the initial number as 1
       //then i++ add the number
-      Vue.set(this.food,"count",'1')
+      Vue.set(this.food, "count", "1");
     }
   },
   components: {
-    CartControl
+    CartControl,
+    Split,
+    BScroll
   }
 };
 
@@ -204,21 +248,54 @@ export default {
 }
 
 .food2 .food-wrapper .food-content .content-wrapper2 .cartControlWrapper {
-  position:absolute;
+  position: absolute;
   right: 12px;
   bottom: 12px;
 }
-.food2 .food-wrapper .food-content .content-wrapper2 .buy{
-width:64px;
-height:30px;
-font-size: 12px;
-line-height: 30px;
-text-align:center;
-background:#FFd161;
-border-radius: 30px;
-position:absolute;
-right: 12px;
-bottom:10px;
-padding:2px;
+.food2 .food-wrapper .food-content .content-wrapper2 .buy {
+  width: 64px;
+  height: 30px;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+  background: #ffd161;
+  border-radius: 30px;
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  padding: 2px;
+}
+
+/* 
+1.same row
+2.float left_conten
+3.ratio in red
+4.right text in gray color
+
+*/
+.food2 .food-wrapper .rating-wrapper {
+  padding-left: 16px;
+}
+
+.food2 .food-wrapper .rating-wrapper .rating-title{
+  padding:16px 16px 16px 0;
+}
+
+.food2 .food-wrapper .rating-wrapper .rating-title .title{
+  font-size: 13px;
+}
+
+.food2 .food-wrapper .rating-wrapper .rating-title .like-ratio {
+  float: left;
+}
+
+.food2 .food-wrapper .rating-wrapper .rating-title .like-ratio .ratio{
+  color:#fb4e44;
+  font-size: 11px;
+
+}
+
+.food2 .food-wrapper .rating-wrapper .rating-title .snd-title {
+  float: right;
 }
 </style>

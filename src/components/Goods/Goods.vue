@@ -172,6 +172,7 @@ export default {
       .get("/api/goods")
       .then(res => {
         var dataSource = res.data;
+        console.log(dataSource.data);
         if (dataSource.code == 0) {
           // assing the data from api to the data section in vue
           that.container = dataSource.data.container_operation_source;

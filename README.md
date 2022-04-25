@@ -1,16 +1,20 @@
 ## Goal:
 
-it will show the cartcontrol button
+1.it could have the Bscroll option
 
-aloso the text
+2.show the gray split section
 
-click the cart control will add the shopcart number
+3.show the comment section
 
 
 
-Process
+## Process:
 
-c
+1.import the Scroll package
+
+2.import the gray split section
+
+3.build the comment section
 
 ## CSS Book Collection:
 
