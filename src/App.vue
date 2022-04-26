@@ -51,7 +51,7 @@ export default {
         if (dataSource.code == 0) {
           // assing the data from api to the data section in vue
           this.commentNum = dataSource.data.comment_num;
-          console.log(this.commentNum);
+          // console.log(this.commentNum);
         }
       })
       .catch(err => {

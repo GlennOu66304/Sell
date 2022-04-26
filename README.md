@@ -1,16 +1,28 @@
 ## Goal
 
-the rating could show the number of the rating
+it could show the rating overview section, it contains the two area
+
+1)seller score section, star section
+
+2) 2)delivery score section
 
 
 
 ## Process
 
+1.set up the two column
+
+3.get the data in the create 
+
+4.seller score, star section., deivery score section
+
+5.css for this area
+
+6.border left area
 
 
-ge the data in the app.vue
 
-send this data into the nav.vue chid component
+
 
 ## CSS Book Collection:
 
