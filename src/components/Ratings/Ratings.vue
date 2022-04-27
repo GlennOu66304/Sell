@@ -48,7 +48,7 @@
           <span
             class="item"
             @click="selectTypeFn(2)"
-            :class="{ active: (selectType == 2) }"
+            :class="{ active: selectType == 2 }"
           >
             {{ ratings.tab[0].comment_score_title }}
           </span>
@@ -56,7 +56,7 @@
           <span
             class="item"
             @click="selectTypeFn(1)"
-            :class="{ active: (selectType == 1) }"
+            :class="{ active: selectType == 1 }"
           >
             {{ ratings.tab[1].comment_score_title }}
           </span>
@@ -64,11 +64,18 @@
           <span
             class="item"
             @click="selectTypeFn(0)"
-            :class="{ active: (selectType == 0) }"
+            :class="{ active: selectType == 0 }"
           >
+            <img
+              src="../../../resource/img/icon_sub_tab_dp_highlighted@2x.png"
+              alt=""
+              v-show="selectType == 0"
+            />
+
             <img
               src="../../../resource/img/icon_sub_tab_dp_normal@2x.png"
               alt=""
+              v-show="selectType != 0"
             />
             {{ ratings.tab[2].comment_score_title }}
           </span>
