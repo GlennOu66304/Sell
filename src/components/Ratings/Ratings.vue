@@ -40,6 +40,48 @@
         </div>
       </div>
       <Split />
+      <!-- bottom content -->
+      <div class="content">
+        <!-- box area -->
+        <div class="rating-select" v-if="ratings.tab">
+          <!-- all -->
+          <span
+            class="item"
+            @click="selectTypeFn(2)"
+            :class="{ active: (selectType == 2) }"
+          >
+            {{ ratings.tab[0].comment_score_title }}
+          </span>
+          <!-- has image -->
+          <span
+            class="item"
+            @click="selectTypeFn(1)"
+            :class="{ active: (selectType == 1) }"
+          >
+            {{ ratings.tab[1].comment_score_title }}
+          </span>
+          <!-- comment -->
+          <span
+            class="item"
+            @click="selectTypeFn(0)"
+            :class="{ active: (selectType == 0) }"
+          >
+            <img
+              src="../../../resource/img/icon_sub_tab_dp_normal@2x.png"
+              alt=""
+            />
+            {{ ratings.tab[2].comment_score_title }}
+          </span>
+        </div>
+        <!-- tag area -->
+        <div class="labels-view">
+          this is the tag area
+        </div>
+        <!-- comment section -->
+      </div>
+      <div class="rating-list">
+        this is the comment area
+      </div>
     </div>
   </div>
 </template>
@@ -47,11 +89,15 @@
 <script>
 import Star from "../Star/Star.vue";
 import Split from "../split/split.vue";
+const All = 2;
+const PICTURE = 1;
+const COMMENT = 0;
 export default {
   name: "Ratings",
   data() {
     return {
-      ratings: {}
+      ratings: {},
+      selectType: All
     };
   },
   created() {
@@ -74,6 +120,11 @@ export default {
   components: {
     Star,
     Split
+  },
+  methods: {
+    selectTypeFn(Type) {
+      this.selectType = Type;
+    }
   }
 };
 </script>
@@ -162,10 +213,64 @@ export default {
   font-weight: 500;
   color: #999999;
   margin-bottom: 10px;
-  margin-top:3px;
+  margin-top: 3px;
 }
 .ratings .ratingsWrapper .overview .overviewRight .delivery_score .text {
   font-size: 11px;
   color: #999999;
+}
+
+.ratings .ratingsWrapper .content {
+  padding: 16px;
+}
+/* 
+1.godlden border for the box
+2.every item cover the 33% content
+*/
+.ratings .ratingsWrapper .content .rating-select {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0;
+  border: 1px solid #ffb000;
+  margin-bottom: 11px;
+  border-radius: 3px;
+}
+
+.ratings .ratingsWrapper .content .rating-select .item {
+  width: 33.3%;
+  display: inline-block;
+  height: 33px;
+  line-height: 33px;
+  font-size: 14px;
+  text-align: center;
+  border-right: 1px solid #ffb000;
+  box-sizing: border-box;
+  color: #ffb000;
+}
+
+.ratings .ratingsWrapper .content .rating-select .item:last-child {
+  border-right: 0;
+}
+
+.ratings .ratingsWrapper .content .rating-select .item:last-child img {
+  height: 14px;
+}
+
+.ratings .ratingsWrapper .content .rating-select .item.active {
+  background: #ffb000;
+  color: black;
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-select
+  .item
+  .ratings
+  .ratingsWrapper
+  .content
+  .labels-view {
+}
+.ratings .ratingsWrapper .content .rating-list {
 }
 </style>

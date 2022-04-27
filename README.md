@@ -1,26 +1,20 @@
 ## Goal
 
-it could show the rating overview section, it contains the two area
-
-1)seller score section, star section
-
-2) 2)delivery score section
+2) 1.three sections div
+3) 2.box view of the border area
+4) 3.click the item box will change the color to golden color
 
 
+
+icon_sub_tab_dp_normal@2x.png
 
 ## Process
 
-1.set up the two column
+1.css property
 
-3.get the data in the create 
+2.@click 
 
-4.seller score, star section., deivery score section
-
-5.css for this area
-
-6.border left area
-
-
+3.all img comment
 
 
 
