@@ -1,22 +1,45 @@
 ## Goal
 
-2) 1.three sections div
-3) 2.box view of the border area
-4) 3.click the item box will change the color to golden color
-
-
-
-icon_sub_tab_dp_normal@2x.png
+2) 1.display the tag content
+3) 2.display the comment content
 
 ## Process
 
-1.css property
+1.get the labale's data from the returned data;
 
-2.@click 
+1.1 for loop render the data
 
-3.all img comment
+2. 2.Add the css property into it
+
+/* 
+
+1.the tag has a  box background
+
+2.the background color is gray;
+
+3.the text of the good review is strong;
+
+4.the text og the bad review is less;
 
 
+
+
+
+*/
+
+
+
+
+
+0.need to seprate the data source from the all, 
+
+1.data has image:
+
+2.forEach to loop the content
+
+3.data has comment
+
+Html: list from the Goods data
 
 ## CSS Book Collection:
 

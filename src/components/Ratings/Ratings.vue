@@ -41,6 +41,7 @@
       </div>
       <Split />
       <!-- bottom content -->
+
       <div class="content">
         <!-- box area -->
         <div class="rating-select" v-if="ratings.tab">
@@ -82,12 +83,20 @@
         </div>
         <!-- tag area -->
         <div class="labels-view">
-          this is the tag area
+          <span
+            v-for="(item, index) in ratings.labels"
+            :key="index"
+            class="item2"
+            :class="{ highlight: item.label_star > 0 }"
+          >
+            {{ item.content }}
+            {{ item.label_count }}
+          </span>
         </div>
+
         <!-- comment section -->
-      </div>
-      <div class="rating-list">
-        this is the comment area
+
+        <ul class="rating-list"></ul>
       </div>
     </div>
   </div>
@@ -123,6 +132,27 @@ export default {
       .catch(err => {
         console.log(err);
       });
+  },
+
+  computed: {
+    selectComponents() {
+      // all
+      if (this.selectType == All) {
+        return this.ratings.comments;
+      } else if (this.selectType == PICTURE) {
+        let arr = [];
+        this.ratings.comments.forEach(item => {
+          if (item.comment_pics.length > 0) {
+            arr.push(item);
+          }
+          return arr;
+        });
+      } else {
+        return item.comment_dp.comments;
+      }
+
+      // comment
+    }
   },
   components: {
     Star,
@@ -268,16 +298,27 @@ export default {
   color: black;
 }
 
-.ratings
-  .ratingsWrapper
-  .content
-  .rating-select
-  .item
-  .ratings
-  .ratingsWrapper
-  .content
-  .labels-view {
+.ratings .ratingsWrapper .content .labels-view {
+  margin-bottom: 14px;
 }
+
+.ratings .ratingsWrapper .content .labels-view .item2 {
+  display: inline-block;
+  height: 27px;
+  line-height: 27px;
+  padding: 0 10px;
+  font-size: 12px;
+  background: #f4f4f4;
+  border-radius: 3px;
+  color: #999999;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.ratings .ratingsWrapper .content .labels-view .item2.highlight {
+  color: #656565;
+}
+
 .ratings .ratingsWrapper .content .rating-list {
 }
 </style>
