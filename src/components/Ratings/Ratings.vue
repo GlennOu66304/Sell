@@ -1,5 +1,5 @@
 <template>
-  <div class="ratings">
+  <div class="ratings" ref="commentView">
     <div class="ratingsWrapper">
       <!-- overview -->
 
@@ -96,7 +96,53 @@
 
         <!-- comment section -->
 
-        <ul class="rating-list"></ul>
+        <ul class="rating-list">
+          <li
+            v-for="(item, index) in selectComponents"
+            :key="index"
+            class="comment-item"
+          >
+            <div class="userIcon">
+              <!-- display the when there is no image from the back end -->
+              <img src="./anonymity.png" alt="" v-if="!item.user_pic_url" />
+
+              <img :src="item.user_pic_url" alt="" v-if="item.user_pic_url" />
+            </div>
+
+            <!-- rating content -->
+            <div class="commentMain">
+              <!-- username -->
+              <div class="user">
+                {{ item.user_name }}
+              </div>
+
+              <!-- time -->
+              <div class="time">
+                {{ formatDate(item.comment_time) }}
+              </div>
+
+              <!-- star section -->
+              <div class="starWrapper2">
+                <span class="text">评分</span>
+                <Star class="star" :scores="item.order_comment_score" />
+              </div>
+
+              <!-- text -->
+              <div class="c-content" v-html="commentStr(item.comment)">
+                <!-- {{ item.comment }} -->
+              </div>
+              <!-- img -->
+              <div class="imgWrapper">
+                <img
+                  v-for="(img, index) in item.comment_pics"
+                  :key="index"
+                  src="img.thumbnail_url"
+                  alt=""
+                />
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -105,6 +151,8 @@
 <script>
 import Star from "../Star/Star.vue";
 import Split from "../split/split.vue";
+import BScroll from "better-scroll";
+
 const All = 2;
 const PICTURE = 1;
 const COMMENT = 0;
@@ -132,6 +180,16 @@ export default {
       .catch(err => {
         console.log(err);
       });
+
+    this.$nextTick(() => {
+      if (!this.scroll) {
+        this.scroll = new BScroll(this.$refs.commentView, {
+          click: true
+        });
+      } else {
+        this.scroll.refresh();
+      }
+    });
   },
 
   computed: {
@@ -148,7 +206,7 @@ export default {
           return arr;
         });
       } else {
-        return item.comment_dp.comments;
+        return this.ratings.comment_dp.comments;
       }
 
       // comment
@@ -156,11 +214,68 @@ export default {
   },
   components: {
     Star,
-    Split
+    Split,
+    BScroll
   },
   methods: {
     selectTypeFn(Type) {
       this.selectType = Type;
+      this.$nextTick(() => {
+        this.scroll.refresh();
+      });
+    },
+
+    //
+    //   1.convet the string to time
+
+    formatDate(time) {
+      // 1.convet the string to time
+      let date = new Date(time * 1000);
+
+      //   2.use the rgex to put the time in yy-mm--dd format
+      // format
+      let fmt = "yyyy.MM.dd";
+      // year
+      if (/(y+)/.test(fmt)) {
+        let year = date.getFullYear().toString();
+        // Sat Oct 14 2017 15:07:07 GMT+0800 (China Standard Time)
+
+        fmt = fmt.replace(RegExp.$1, year);
+      }
+      // console.log(fmt);
+      // month
+      if (/(M+)/.test(fmt)) {
+        let month = date.getMonth() + 1;
+        // Sat Oct 14 2017 15:07:07 GMT+0800 (China Standard Time)
+        if (month < 10) {
+          month = "0" + month;
+        }
+        fmt = fmt.replace(RegExp.$1, month);
+      }
+
+      // day
+      if (/(d+)/.test(fmt)) {
+        let day = date.getDate();
+        // Sat Oct 14 2017 15:07:07 GMT+0800 (China Standard Time)
+        if (day < 10) {
+          day = "0" + day;
+        }
+        fmt = fmt.replace(RegExp.$1, day);
+      }
+
+      // console.log(fmt);
+      return fmt;
+    },
+
+    // hash tag add
+    // js put the # tage
+    // html add the v-html section
+    // RegExp apply
+
+    commentStr(content) {
+      // console.log(content);
+      let rel = /#[^#]+#/g;
+      return content.replace(rel, "<i>$&</i>");
     }
   }
 };
@@ -320,5 +435,134 @@ export default {
 }
 
 .ratings .ratingsWrapper .content .rating-list {
+}
+
+.ratings .ratingsWrapper .content .rating-list .comment-item {
+  padding: 15px 14px 17px 0;
+  border-bottom: 1px solid #f4f4f4;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.ratings .ratingsWrapper .content .rating-list .comment-item .userIcon {
+  flex: 0 0 41px;
+  margin-right: 10px;
+}
+
+.ratings .ratingsWrapper .content .rating-list .comment-item .userIcon img {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+}
+
+.ratings .ratingsWrapper .content .rating-list .comment-item .commentMain {
+  flex: 1;
+  margin-top: 6px;
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .user {
+  width: 50%;
+  float: left;
+  font-size: 12px;
+  color: #333333;
+}
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .time {
+  width: 50%;
+  float: right;
+  font-size: 10px;
+  text-align: right;
+  color: #666666;
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .starWrapper2 {
+  /* float: left; */
+  margin-top:12px;
+  margin-bottom: 15px;
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .starWrapper2
+  .star {
+  float: left;
+  margin-left:7px;
+
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .starWrapper2
+  .text {
+  color: #999999;
+  font-size: 11px;
+  float:left;
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .c-content {
+  margin-top: 30px;
+  font-size: 13px;
+  line-height: 19px;
+}
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .c-content
+  i {
+  color: #576b95;
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .imgWrapper {
+}
+
+.ratings
+  .ratingsWrapper
+  .content
+  .rating-list
+  .comment-item
+  .commentMain
+  .imgWrapper
+  img {
 }
 </style>
