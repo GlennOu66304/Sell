@@ -16,7 +16,7 @@
         </div>
         <!-- images -->
         <div class="picWrapper" ref="picsView">
-          <ul v-if="seller.poi_env" class="picsList" ref="picsList" >
+          <ul v-if="seller.poi_env" class="picsList" ref="picsList">
             <li
               v-for="(imgUrl, index) in seller.poi_env.thumbnails_url_list"
               :key="index"
@@ -28,15 +28,58 @@
           </ul>
         </div>
         <!-- food safety -->
-        <div class="safetyWrapper"></div>
+        <div class="safetyWrapper">
+          <span>查看食品安全档案</span>
+        </div>
       </div>
       <Split />
       <!-- delivery -->
-      <div class="tipView"></div>
+      <div class="tipView">
+        <!-- 配送服务 -->
+        <div class="delivery">
+          <span>配送服务:</span>
+          {{ seller.app_delivery_tip }}
+        </div>
+        <div class="time">
+          <span>配送时间:</span>
+          {{ seller.shipping_time }}
+        </div>
+        <!--配送时间  -->
+      </div>
 
       <Split />
       <!-- promotion -->
-      <div class="promotionView"></div>
+      <div class="promotionView">
+        <!-- service -->
+        <div
+          class="service"
+          v-for="(item, index) in seller.poi_service"
+          :key="index"
+        >
+          商家服务
+
+          <div class="service2 " v-if="seller.poi_service">
+            <img :src="item.icon" alt="" />
+            {{ item.content }}
+          </div>
+        </div>
+        <!-- discount -->
+        <div class="discount">
+          <div
+            class="discount-item"
+            v-for="(item, index) in seller.discounts2"
+            :key="index"
+          >
+            <div class="icon">
+              <img :src="item.icon_url" alt="" />
+            </div>
+
+            <div class="text">
+              {{ item.info }}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -74,9 +117,9 @@ export default {
               console.log(width);
               this.$refs.picsList.style.width = width + "px";
 
-              this.scroll = new BScroll(this.$refs.picsView,{
-                scrollX:true,
-              })
+              this.scroll = new BScroll(this.$refs.picsView, {
+                scrollX: true
+              });
             }
           });
         }
@@ -142,6 +185,70 @@ export default {
   width: 100%;
   height: 100%;
 }
-.seller3 .sellerWrapper .sellerView .safeWrapper {
+.seller3 .sellerWrapper .sellerView .safetyWrapper {
+  background: url(safety.png) no-repeat left center;
+  background-size: 14px 16px;
+  padding: 15px 0 15px 25px;
+  font-size: 14px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.seller3 .sellerWrapper .tipView {
+}
+.seller3 .sellerWrapper .tipView .delivery {
+  background: url(delivery.png) no-repeat left center;
+  background-size: 14px 16px;
+  padding: 15px 0 15px 25px;
+  font-size: 14px;
+  border-bottom: 1px solid #f4f4f4;
+  margin-left: 12px;
+}
+.seller3 .sellerWrapper .tipView .time {
+  background: url(time.png) no-repeat left center;
+
+  background-size: 14px 16px;
+  padding: 15px 0 15px 25px;
+  font-size: 14px;
+  border-bottom: 1px solid #f4f4f4;
+  margin-left: 12px;
+}
+
+.seller3 .sellerWrapper .promotionView {
+  padding-left: 15px;
+}
+
+.seller3 .sellerWrapper .promotionView .service {
+  background: url(server.png) no-repeat left center;
+  padding: 15px 0 17px 26px;
+  background-size: 15px 15px;
+  font-size: 14px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.seller3 .sellerWrapper .promotionView .service .service2 {
+  display: inline-block;
+  margin-left: 17px;
+}
+
+.seller3 .sellerWrapper .promotionView .service .service2 img {
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+}
+.seller3 .sellerWrapper .promotionView .discount .discount-item {
+  display: flex;
+}
+.seller3 .sellerWrapper .promotionView .discount .discount-item .icon {
+  flex: 0 0 25px;
+}
+
+.seller3 .sellerWrapper .promotionView .discount .discount-item .icon img {
+  width: 15px;
+  height: 15px;
+}
+
+.seller3 .sellerWrapper .promotionView .discount .discount-item .text {
+  flex: 1;
+  font-size: 14px;
 }
 </style>
